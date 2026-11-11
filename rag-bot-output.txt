@@ -1,0 +1,27 @@
+FGA store 01M75SRCSHFS9H3399CDZF5YBQ, model 01M75SRCSSVB32SMVC6060BYYY, 7 tuples
+
+
+alice asks: "What are the salary bands for engineers in 2027?"
+  FGA check user:alice confidential_viewer document:salary_bands_2027 -> ALLOWED
+  FGA check user:alice viewer document:leave_policy -> ALLOWED
+  FGA check user:alice confidential_viewer document:budget_Q4 -> ALLOWED
+  context given to LLM: [salary_bands_2027, leave_policy, budget_Q4]
+  answer: Engineer I: IDR 12‑16 million per month  
+Engineer II: IDR 17‑24 million per month  
+Senior Engineer: IDR 25‑35 million per month
+
+bob asks: "What are the salary bands for engineers in 2027?"
+  FGA check user:bob confidential_viewer document:salary_bands_2027 -> DENIED
+  FGA check user:bob viewer document:leave_policy -> ALLOWED
+  FGA check user:bob confidential_viewer document:budget_Q4 -> DENIED
+  context given to LLM: [leave_policy]
+  answer: I do not have access to that information.
+
+bob asks: "How many days of annual leave do I get?"
+  FGA check user:bob viewer document:leave_policy -> ALLOWED
+  FGA check user:bob viewer document:remote_work -> ALLOWED
+  FGA check user:bob confidential_viewer document:budget_Q4 -> DENIED
+  context given to LLM: [leave_policy, remote_work]
+  answer: You receive 12 days of annual leave per year.
+
+all checks passed

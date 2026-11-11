@@ -1,0 +1,1 @@
+{ "name": "fga-rag-bot", "private": true, "type": "module", "dependencies": { "@openfga/sdk": "^0.9.7" } }
